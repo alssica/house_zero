@@ -78,6 +78,12 @@ public class SpeechManager : MonoBehaviour {
             //UIpopout.SendMessage("OnHide");
         });
 
+        keywords.Add("Heat Map", () =>
+        {
+            var floor = GameObject.Find("Quad");
+            floor.SendMessage("OnHeatMap");
+        });
+
 
         keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
 
