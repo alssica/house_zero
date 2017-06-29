@@ -32,7 +32,7 @@ public class SpeechManager : MonoBehaviour {
         });
 
         //controls the width of opening
-        keywords.Add("Open A Quarter", () =>
+        keywords.Add("A Quarter Open", () =>
         {
             var focusObject = GazeGestureManager.Instance.FocusedObject;
             if (focusObject != null)
@@ -41,7 +41,7 @@ public class SpeechManager : MonoBehaviour {
             }
         });
 
-        keywords.Add("Half", () =>
+        keywords.Add("Half Open", () =>
         {
             var focusObject = GazeGestureManager.Instance.FocusedObject;
             if (focusObject != null)
@@ -50,7 +50,7 @@ public class SpeechManager : MonoBehaviour {
             }
         });
 
-        keywords.Add("Open Three Quarters", () =>
+        keywords.Add("Three Quarters Open", () =>
         {
             var focusObject = GazeGestureManager.Instance.FocusedObject;
             if (focusObject != null)
@@ -60,10 +60,10 @@ public class SpeechManager : MonoBehaviour {
         });
 
         //calls for UI panel to appear
-        keywords.Add("Panel", () =>
+        keywords.Add("DashboardUI", () =>
         {
             var UIobj = TriggerUI.TriggerObj;
-            UIobj.SendMessage("OnShow");
+            UIobj.SendMessage("OnDashboard");
         });
 
         keywords.Add("Hide", () =>

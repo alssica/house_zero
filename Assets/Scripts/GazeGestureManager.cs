@@ -9,10 +9,11 @@ public class GazeGestureManager : MonoBehaviour {
     public static GazeGestureManager Instance { get; private set; }
     public GameObject FocusedObject { get; private set; }
 
-    //public Text dynamicUIText;
     public delegate void FocusedAction();
     public static event FocusedAction OnFocused;
 
+    //public delegate void WindowFocusedAction();
+    //public static event WindowFocusedAction OnFocusedWindow;
 
     GestureRecognizer recognizer;
 
@@ -31,10 +32,8 @@ public class GazeGestureManager : MonoBehaviour {
         };
 
         recognizer.StartCapturingGestures();
-
 	}
 	
-	// Update is called once per frame
 	void Update () {
         GameObject oldFocusObject = FocusedObject;
 
@@ -46,18 +45,15 @@ public class GazeGestureManager : MonoBehaviour {
         if(Physics.Raycast(headPosition, gazeDirection, out hitInfo))
         {
             FocusedObject = hitInfo.collider.gameObject;
-            // print(FocusedObject.name);
-
             /*
-                if (dynamicUIText)
-                {
-                    dynamicUIText.text = FocusedObject.name;
-                }
+            if (FocusedObject.name.Contains("Sensor"))
+            {
 
-                else
-                {
-                    UIText.text = "...";
-                }
+                //FocusedObject.SendMessage("ShowUI");
+                if (OnFocused != null)
+                    OnFocused();
+
+            }
             */
         }
         else
@@ -65,6 +61,7 @@ public class GazeGestureManager : MonoBehaviour {
             FocusedObject = null;
         }
 
+        
         if(FocusedObject != oldFocusObject)
         {
             recognizer.CancelGestures();
@@ -73,5 +70,6 @@ public class GazeGestureManager : MonoBehaviour {
             if (OnFocused != null)
                 OnFocused();
         }
+        
 	}
 }

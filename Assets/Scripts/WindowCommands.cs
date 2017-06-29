@@ -15,9 +15,6 @@ public class WindowCommands : MonoBehaviour {
     {
         originalPosition = this.transform.localPosition;
         remainOpen = openWidth;
-        warningObj = GameObject.Find("warningUI");
-        warning = warningObj.GetComponentInChildren<Text>();
-        warning.enabled = false;
     }
 
 	// Use this for initialization
@@ -33,7 +30,6 @@ public class WindowCommands : MonoBehaviour {
     {
         gameObject.transform.Translate(0, openWidth, 0);
         remainOpen = 0.0f;
-        warning.enabled = false;
     }
 
     void OnClose()
@@ -49,7 +45,6 @@ public class WindowCommands : MonoBehaviour {
 
         gameObject.transform.Translate(0, -(openWidth - remainOpen), 0);
         remainOpen = openWidth;
-        warning.enabled = false;
     }
 
     void OnQuarter()
@@ -60,11 +55,6 @@ public class WindowCommands : MonoBehaviour {
         {
             gameObject.transform.Translate(0, opening, 0);
             remainOpen -= opening;
-        }
-        else
-        {
-            warning.text = "not enough space";
-            warning.enabled = true;
         }
     }
 
@@ -77,11 +67,6 @@ public class WindowCommands : MonoBehaviour {
             gameObject.transform.Translate(0, opening, 0);
             remainOpen -= opening;
         }
-        else
-        {
-            warning.text = "not enough space";
-            warning.enabled = true;
-        }
     }
 
     void OnThreeQuarters()
@@ -92,11 +77,6 @@ public class WindowCommands : MonoBehaviour {
         {
             gameObject.transform.Translate(0, 0.75f * openWidth, 0);
             remainOpen -= opening;
-        }
-        else
-        {
-            warning.text = "not enough space";
-            warning.enabled = true;
         }
     }
 }

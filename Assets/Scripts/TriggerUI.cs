@@ -8,24 +8,12 @@ public class TriggerUI : MonoBehaviour {
 
     void Awake()
     {
-        TriggerObj = GameObject.Find("UI");
+        TriggerObj = GameObject.Find("DashboardUI");
         TriggerObj.SetActive(true);
         TriggerObj.GetComponentInChildren<Canvas>().enabled = false;
     }
 
-    /*
-    void ShowKeyword()
-    {
-        Instance.SetActive (true);
-    }
-
-    void HideKeyword()
-    {
-        Instance.SetActive(false);
-    }
-    */
-
-    void OnShow()
+    void OnDashboard()
     {
         TriggerObj.GetComponentInChildren<Canvas>().enabled = true;
     }

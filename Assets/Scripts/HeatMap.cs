@@ -23,7 +23,7 @@ public class HeatMap : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        /*
+        
         if (GazeGestureManager.Instance.FocusedObject == floor)
         {
             //floorRend.material.shader = Shader.Find("HeatMap_Linked");
@@ -40,7 +40,7 @@ public class HeatMap : MonoBehaviour {
 
             //Debug.Log(floorRend.material.GetFloat)
         }
-        */
+        
       
 	}
 

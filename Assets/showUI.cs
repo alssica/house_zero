@@ -4,33 +4,48 @@ using UnityEngine;
 
 public class showUI : MonoBehaviour {
 
-    private bool Showing;
+    private GameObject sensorObj;
+    private bool showing;
+
+
+    void Start()
+    {
+        sensorObj = this.gameObject;
+        sensorObj.GetComponentInChildren<Canvas>().enabled = false;
+    }
 
     // Use this for initialization
-    private void OnEnable()
+    void OnEnable()
     {
-        GazeGestureManager.OnFocused += Show;
-        Showing = false;
+        GazeGestureManager.OnFocused += ToggleUI;
+        showing = false;
     }
 
-    private void OnDisable()
+    void OnDisable()
     {
-        GazeGestureManager.OnFocused -= Show;
+        GazeGestureManager.OnFocused -= ToggleUI;
     }
 
-    void Show()
-    {   /*
-        GameObject target = this.gameObject;
-        if (!Showing)
+    void ToggleUI()
+    {
+        if (GazeGestureManager.Instance.FocusedObject == sensorObj)
         {
-            target.GetComponentInChildren<Canvas>().enabled = true;
-            Showing = true;
+            if (!showing)
+            {
+                sensorObj.GetComponentInChildren<Canvas>().enabled = true;
+                showing = true;
+            }
+            else
+            {
+                sensorObj.GetComponentInChildren<Canvas>().enabled = false;
+                showing = false;
+            }
         }
         else
         {
-            target.GetComponentInChildren<Canvas>().enabled = false;
-            Showing = false;
+            sensorObj.GetComponentInChildren<Canvas>().enabled = false;
+            showing = false;
         }
-        */
     }
+
 }
