@@ -44,7 +44,7 @@ public class HeatMap : MonoBehaviour {
       
 	}
 
-    private float remap(float x, float dataMin, float dataMax, float targetMin, float targetMax)
+    public static float remap(float x, float dataMin, float dataMax, float targetMin, float targetMax)
     {
         return targetMin + (targetMax - targetMin) * (x - dataMin) / (dataMax - dataMin);
     }

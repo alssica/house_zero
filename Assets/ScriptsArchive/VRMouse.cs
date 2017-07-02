@@ -9,6 +9,8 @@ public class VRMouse : MonoBehaviour
     public bool autoRecenterPitch = true;
     public bool autoRecenterRoll = true;
     // Update is called once per frame
+
+
     void Update()
     {
         bool rolled = false;
@@ -30,6 +32,7 @@ public class VRMouse : MonoBehaviour
             }
             mouseY -= Input.GetAxis("Mouse Y") * 2.4f;
             mouseY = Mathf.Clamp(mouseY, -85, 85);
+            transform.localRotation = Quaternion.Euler(mouseY, mouseX, mouseZ);
         }
         else if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
         {
@@ -47,7 +50,7 @@ public class VRMouse : MonoBehaviour
             // People don't usually leave their heads tilted to one side for long.
             mouseY = Mathf.Lerp(mouseY, 0, Time.deltaTime / (Time.deltaTime + 0.1f));
         }
-        transform.localRotation = Quaternion.Euler(mouseY, mouseX, mouseZ);
+
     }
 #endif
 }

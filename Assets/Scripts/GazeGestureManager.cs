@@ -19,7 +19,7 @@ public class GazeGestureManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-       
+
         Instance = this;
 
         recognizer = new GestureRecognizer();

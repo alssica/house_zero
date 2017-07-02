@@ -5,6 +5,8 @@ using UnityEngine;
 public class SimpleCursor : MonoBehaviour {
 
     public static SimpleCursor Instance;
+    private GameObject cursorObj;
+    private float focusDist;
     public GameObject FocusedObj;
 
 	void Awake () {
@@ -13,6 +15,14 @@ public class SimpleCursor : MonoBehaviour {
             Instance = this;
         }
 	}
+
+    void Start()
+    {
+        focusDist = Camera.main.farClipPlane / 3;
+        Vector3 focusTranslate = focusDist * Camera.main.transform.forward;
+        Instance.gameObject.transform.position = Camera.main.transform.position+ focusTranslate;
+        
+    }
 	
 	// Update is called once per frame
 	void Update () {
