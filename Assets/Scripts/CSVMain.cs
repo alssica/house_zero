@@ -21,11 +21,11 @@ public class CSVMain : MonoBehaviour {
     }
 
     void Start()
-    {
-        //filter data within room boundary 
-        
+    {        
         for (var i = 0; i < dataR.Count; i++)
-        {   /*
+        {   
+            //filter data within room boundary 
+            /*
             if (dataR[i]["X"] <= 20 || dataR[i]["X"] >= 25)
             {
                 dataR.Remove(dataR[i]);
@@ -37,6 +37,7 @@ public class CSVMain : MonoBehaviour {
                 Vmax = dataR[i]["Vmeg"];
             }
         }
+        print(Vmax);
     }
 
     //rendering hirarchy: after all other renderings are done
