@@ -59,7 +59,6 @@ public class SpeechManager : MonoBehaviour {
             }
         });
 
-        //calls for UI panel to appear
         keywords.Add("Dashboard", () =>
         {
             var UIobj = TriggerUI.TriggerObj;
@@ -78,15 +77,29 @@ public class SpeechManager : MonoBehaviour {
             //UIpopout.SendMessage("OnHide");
         });
 
+        
         keywords.Add("Heat Map", () =>
         {
             var floor = GameObject.Find("Quad");
-            floor.SendMessage("OnToggleHM");
+            floor.GetComponent<HeatMap>().OnHeatMap(true);
+        });
+
+        keywords.Add("Heat Map Off", () =>
+        {
+            var floor = GameObject.Find("Quad");
+            floor.GetComponent<HeatMap>().OnHeatMap(false);
         });
 
         keywords.Add("Air Flow", () =>
         {
-            Camera.main.SendMessage("OnCFDToggle");
+            //Camera.main.SendMessage("OnCFDToggle");
+            Camera.main.GetComponent<CSV3DMainArray>().showCFD = true;
+        });
+
+        keywords.Add("Air Flow Off", () =>
+        {
+            //Camera.main.SendMessage("OnCFDToggle");
+            Camera.main.GetComponent<CSV3DMainArray>().showCFD = false;
         });
 
         keywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());

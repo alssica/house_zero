@@ -35,6 +35,7 @@ public class GazeGestureManager : MonoBehaviour {
 	}
 	
 	void Update () {
+
         GameObject oldFocusObject = FocusedObject;
 
         var headPosition = Camera.main.transform.position;
@@ -45,16 +46,6 @@ public class GazeGestureManager : MonoBehaviour {
         if(Physics.Raycast(headPosition, gazeDirection, out hitInfo))
         {
             FocusedObject = hitInfo.collider.gameObject;
-            /*
-            if (FocusedObject.name.Contains("Sensor"))
-            {
-
-                //FocusedObject.SendMessage("ShowUI");
-                if (OnFocused != null)
-                    OnFocused();
-
-            }
-            */
         }
         else
         {

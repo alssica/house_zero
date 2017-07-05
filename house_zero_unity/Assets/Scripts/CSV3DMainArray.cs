@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class CSV3DMainArray : MonoBehaviour {
+public class CSV3DMainArray : MonoBehaviour
+{
 
     //[SerializeField]
 
@@ -15,29 +16,32 @@ public class CSV3DMainArray : MonoBehaviour {
     public float offsetX = 8f;
     public float offsetY = 14.5f;
     public float offsetZ = 32f, obsDist = 8f;
-    private float vLenMin = 0.25f;
+    public float vLenMin = 0.25f;
     public float vLen = 0.65f;
     private float vmagMin, vmagMax;
     public bool showCFD;
+    public float sx, sy, sz;
 
     void Awake()
     {
-        data = CSVReaderClass.Read("3d_field");                      //put csv file in the resources folder to read
+        Application.targetFrameRate = 30;
+        data = CSVReaderClass.Read("3d_filtered");                      //put csv file in the resources folder to read
     }
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         /*
         foreach(csvData c in dataCFD)
         {
             Vmag.Add(GetVmag(c));
         }
-
         vmagMin = Vmag.Min();
         vmagMax = Vmag.Max();
         */
     }
 
+    /*
     void OnCFDToggle()
     {
         if (showCFD == false)
@@ -49,6 +53,7 @@ public class CSV3DMainArray : MonoBehaviour {
             showCFD = false;
         }
     }
+    */
 
     void Update()
     {
@@ -57,7 +62,6 @@ public class CSV3DMainArray : MonoBehaviour {
          {
              var cameraPos = Camera.main.transform.position;
              print(cameraPos);
-
              for (var i = 0; i < data.Count(); i++)
              {
                  var c = data[i];
@@ -69,7 +73,6 @@ public class CSV3DMainArray : MonoBehaviour {
              }
              print(dataCFD.Length);
              print(Camera.main.transform.position.z);
-
              vmagMin = Vmag.Min();
              vmagMax = Vmag.Max();      
            }
@@ -87,7 +90,7 @@ public class CSV3DMainArray : MonoBehaviour {
             if (c.v0.z - offsetZ - 0.1f < Camera.main.transform.position.z && Camera.main.transform.position.z < c.v0.z - offsetZ + 0.1f)
             //if (c.v0.z - offsetZ == Camera.main.transform.position.z)
             {
-                newCFD.Add(c);  
+                newCFD.Add(c);
             }
         }
         //print(newCFD.Count);
@@ -105,7 +108,7 @@ public class CSV3DMainArray : MonoBehaviour {
         vmagMin = Vmag.Min();
         vmagMax = Vmag.Max();
     }
-    
+
 
     public void OnRenderObject()                                        //rendering hirarchy: after all other renderings are done
     {
@@ -127,15 +130,15 @@ public class CSV3DMainArray : MonoBehaviour {
             {
 
                 float a = HeatMap.remap(CFD.vmag, vmagMin, vmagMax, 0, 1);
-                Color Vcolor = new Color(0.85f * a, 1 - a, 0, 0.5f);
+                Color Vcolor = new Color(a, 1 - a, 0, 0.5f);
                 GL.Color(Vcolor);
 
                 //GL.Vertex3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius, 0);
-                var vLenMax = vLenMin = vLen;
+                var vLenMax = vLenMin + vLen;
                 float r = HeatMap.remap(CFD.vmag, vmagMin, vmagMax, vLenMin, vLenMax);
                 Vector3 newVT = CFD.v0 + r * CFD.vvec;
-                GL.Vertex3(CFD.v0.x - offsetX, CFD.v0.y - offsetY, CFD.v0.z - offsetZ-obsDist);
-                GL.Vertex3(newVT.x - offsetX, newVT.y - offsetY, newVT.z - offsetZ-obsDist);
+                GL.Vertex3(sx*(CFD.v0.x - offsetX), sy*(CFD.v0.y - offsetY), sz*(CFD.v0.z - offsetZ) - obsDist);
+                GL.Vertex3(sx*(newVT.x - offsetX), sy*(newVT.y - offsetY), sz*(newVT.z - offsetZ) - obsDist);
             }
 
             GL.End();

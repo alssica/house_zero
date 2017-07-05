@@ -10,6 +10,7 @@ public class WindowCommands : MonoBehaviour {
     private float remainOpen;
     private Text warning;
     private GameObject warningObj;
+    public static bool windowOpen;
 
     void Start()
     {
@@ -30,6 +31,7 @@ public class WindowCommands : MonoBehaviour {
     {
         gameObject.transform.Translate(0, openWidth, 0);
         remainOpen = 0.0f;
+        windowOpen = true;
     }
 
     void OnClose()
@@ -45,6 +47,7 @@ public class WindowCommands : MonoBehaviour {
 
         gameObject.transform.Translate(0, -(openWidth - remainOpen), 0);
         remainOpen = openWidth;
+        windowOpen = false;
     }
 
     void OnQuarter()

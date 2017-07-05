@@ -9,7 +9,7 @@ public class HeatMap : MonoBehaviour {
     private GameObject floor;
     private Renderer floorRend;
     public float[] sensors = new float[2];
-    bool showing;
+    public bool showHM = false;
 
 	// Use this for initialization
 	void Start () {
@@ -22,26 +22,20 @@ public class HeatMap : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
         /*
-        if (GazeGestureManager.Instance.FocusedObject == floor)
+        //gaze toggle
+        if (showing == true)
         {
-            //floorRend.material.shader = Shader.Find("HeatMap_Linked");
-            
-            float smin = remap(sensors.Min(), sensors.Min(), sensors.Max(), 0.25f, 0.8f);
-            float smax = remap(sensors.Max(), sensors.Min(), sensors.Max(), 0.25f, 0.8f);
-
-            Color colMin = new Color ((1-smax), 0.5f, 0.5f, 1);
-            Color colMax = new Color (0.9f, 0.6f, (1-smin), 1);
-
-            floorRend.material.SetColor("_Color1", colMin);
-
-            floorRend.material.SetColor("_Color2", colMax);
-
-            //Debug.Log(floorRend.material.GetFloat)
+            if (GazeGestureManager.Instance.FocusedObject == floor)
+            {
+                OnHeatMap(true);
+            }
+            else
+            {
+                OnHeatMap(false);
+            }
         }
         */
-      
 	}
 
     public static float remap(float x, float dataMin, float dataMax, float targetMin, float targetMax)
@@ -49,21 +43,9 @@ public class HeatMap : MonoBehaviour {
         return targetMin + (targetMax - targetMin) * (x - dataMin) / (dataMax - dataMin);
     }
 
-    void OnToggleHM()
+    public void OnHeatMap(bool toggle)
     {
-        if(showing == false)
-        {
-            showing = true;
-        }
-        else
-        {
-            showing = false;
-        }
-    }
-
-    void OnHeatMap()
-    {
-        if (showing == true)
+        if (toggle == true)
         {
             //floorRend.material.shader = Shader.Find("HeatMap_Linked");
             float smin = remap(sensors.Min(), sensors.Min(), sensors.Max(), 0.25f, 0.8f);
@@ -75,11 +57,14 @@ public class HeatMap : MonoBehaviour {
             floorRend.material.SetColor("_Color1", colMin);
 
             floorRend.material.SetColor("_Color2", colMax);
+
+            showHM = true;
         }
         else
         {
             floorRend.material.SetColor("_Color1", Color.white);
             floorRend.material.SetColor("_Color2", Color.white);
+            showHM = false;
         }
     }
     
